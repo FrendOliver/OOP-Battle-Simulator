@@ -1,6 +1,7 @@
 import random
 from goblin import Goblin
 from hero import Hero
+from the_big_cheese import BigCheese
 
 def main():
     print("Welcome to the Battle Arena!")
@@ -24,6 +25,7 @@ def main():
         # Hero's turn to attack
         target_goblin = random.choice([goblin for goblin in goblins if goblin.is_alive()])
         damage = hero.strike()
+        total_damage += damage
         print(f"Hero attacks {target_goblin.name} for {damage} damage!")
         target_goblin.take_damage(damage)
 
@@ -44,6 +46,21 @@ def main():
         print(f"\nThe hero has defeated all the goblins! ༼ ᕤ◕◡◕ ༽ᕤ")
     else:
         print(f"\nThe hero has been defeated. Game Over. (｡•́︿•̀｡)")
+
+    if hero.is_alive():
+        print("boss Time!")
+        cheese = BigCheese("The Big Cheese")
+        while hero.is_alive() and cheese.is_alive():
+            damage = hero.strike()
+            cheese.take_damage(damage)
+
+            damage = cheese.attack()
+            hero.receive_damage(damage)
+        if hero.is_alive():
+            print(f"\nThe hero has defeated The Big Cheese!!! ༼ ᕤ◕◡◕ ༽ᕤ")
+        else:
+            print(f"\nThe Big Cheese absolutely nacho'd the hero (｡•́︿•̀｡)")
+
 
     # Final tally of goblins defeated
     print(f"Battle Summary: ")
